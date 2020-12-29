@@ -1,0 +1,16 @@
+FEAT
+--------
+[0] 2020-09-03+17:10: line 50 in ~/src/components/UserInput.js
+    add buttons for user input
+
+
+DOCS
+--------
+[1] 2020-05-11+00:14: line 100 in ~/doc/lackey.txt
+    write doctring string for Vim plugin Lackey
+ 
+[2] 2020-09-03+18:00: line 30 in ~/src/hooks/HttpGetRequest.js
+    write doctring for `useAxiosGet`
+ 
+[3] 2020-09-04+18:10: line 22 in ~/src/hooks/HttpGetRequest.js
+    write doctring for `useAxiosPost`

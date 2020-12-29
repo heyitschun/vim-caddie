@@ -1,0 +1,236 @@
+*lackey.txt*
+
+Author: Chun Poon <https://heyitschun.com>
+License: MIT
+
+CONTENTS                                                            *lackey-toc*
+
+===============================================================================
+INTRODUCTION                                                      *lackey-intro*
+
+Lackey is a productivity plugin for Vim. It acts as a medium between your code
+and your project tasks.
+
+Lackey helps you keep track of refactoring tasks, bug fixes and other todos in
+your project. It does so by looking for commented lines in your code that
+start with a tag that is recognized by Lackey. It then copies these tasks into
+a file in your project root folder and keeps the organized. This way you can
+keep todo reminders close to your code, as well as have them centralized in one
+location.
+
+So Lackey is not a plugin for writing comments, but a tool to help you keep
+track of todos that you've written in your comments.
+
+===============================================================================
+LANGUAGE SUPPORT                                              *lackey-languages*
+
+The latest version of Lackey supports the following languages:
+
+- CSS
+- Deno
+- Go
+- HTML
+- JavaScript
+- Markdown
+- Plain text
+- Python
+- TypeScript
+
+If there is a language of file extension you would like to see support for,
+please open an issue on Github. Or, even better, consider adding it as a
+feature yourself and become a contributor.
+
+===============================================================================
+REQUIREMENTS                                               *lackey-requirements*
+
+- Neovim
+- pynvim
+
+===============================================================================
+INSTALLATION                                                    *lackey-install*
+
+===============================================================================
+USAGE                                                             *lackey-usage*
+
+After you have successfully installed Lackey, you must first initialize Lackey
+in the root directory of your project. You can do this by running the command:
+
+`:LackeyInit`
+
+This will create a `lackey.json` file (if it does not exist already). The tasks
+and notes that Lackey collects will be stored in this file.
+
+In your code you can now add *lackey-tags* to the beginning of commented line.
+For example:
+
+>
+    // FEAT: write GET request
+    const axiosGet = () => {};
+<
+
+Then run the `:LackeyCollect` command to tell Lackey to scan your files for
+tasks and notes. It will put them in your `lackey.json` file.
+
+To see an overview of your tasks, run the command `:LackeyShow`. This will open
+a popup window with all your tasks for that project. While the popup is open,
+you will see your tasks categorized by tag name. The tasks are also numbered,
+which you can see to the left of the task. For example:
+
+>
+    ...
+
+    [12] 2020-09-03+18:00: line 30 in ~/hooks/HttpGetRequest.js
+         write doctring for `useAxiosGet`
+
+    ...
+<
+
+This would task number 12, which can be found on line 30 in a file called
+'HttpGetRequest.js'. If you now type `12<CR>`, Lackey will attempt to open that
+file for you in the current buffer and move your cursor to the corresponding
+line number.
+
+Please be aware that if you have a task listed in your `lackey.json` file that
+does not exists anywhere, Lackey will create a file in the specified path.
+
+While it is not recommended, you can also view and edit your tasks directly in
+the `lackey.json` file if this has your preference.
+
+To close the Lackey popup use `<Esc>`, `q` or `:q<CR>`.
+
+* NOTE: user should be able to set autocommand to collect when saving file
+
+===============================================================================
+TAGS                                                               *lackey-tags*
+
+The built-in tags are based on Udacity's Git Commit Message Style Guide{1}. If
+these tags are not to your liking or if you need more tags, refer to the 
+*lackey-config* section to learn how to configure your own tags.
+
+Built-in tags:
+
+`DOCS`      - changes or additions to the project's documentation
+`FEAT`      - new features to be added
+`FIX`       - bug fixes
+`NOTE`      - general tag for comments
+`REFACTOR`  - review and rewrite production code
+`STYLE`     - formatting, indentation, naming conventions
+`TEST`      - writing or rewriting tests
+`TODO`      - general tag for chores
+
+NOTE: Lackey uses regular expressions under the hood to look for tags, so by
+using a tag in the middle of your task description might lead to unexpected
+behavior.
+
+>
+    // DOCS: write docstring and FIX the function <- try not to do this
+    const axiosGet = () => {};
+<
+
+{1} https://udacity.github.io/git-styleguide/
+
+===============================================================================
+MULTILINE TASKS                                               *lackey-multiline*
+
+Currently, Lackey does not support multiline todo descriptions. This means 
+that Lackey will only collect a task description up to the end of the line.
+The reason for this decision is no minimize the presence of Lackey in your
+code, in case you have to share your code with people who do not use Lackey.
+For example:
+
+>
+    # DOCS: write docstring for `add` function <- this is tracked
+    # make sure to follow the PEP 257 conventions: <- this is not tracked
+    # https://www.python.org/dev/peps/pep-0257/ <- this is not tracked
+    def add(a, b):
+        return a + b
+<
+
+===============================================================================
+COMMANDS                                                       *lackey-commands*
+
+`:LackeyCollect`
+`:LackeyInit`
+`:LackeyShow`
+
+===============================================================================
+CONFIGURATION                                                    *lackey-config*
+
+To configure Lackey to your liking, the following global variables are
+available:
+
+g:lackey_ignore                                                  *lackey-ignore*
+        
+        Files and directories you would like Lackey to ignore.
+
+Default: '.*,node_modules,venv,virtualenv'
+
+g:lackey_timestamp_format                              *lackey-timestamp-format*
+        
+        Date and time formatting using Python's `strftime` format codes{2}.
+
+
+
+-------------------------------------------------------------------------------
+CUSTOM TAGS                                                 *lackey-custom-tags*
+
+Lackey uses regular expressions to detect the tasks you want it to collect.
+Currently, valid tags must be between 2 and 10 characters long and be written
+in all caps. No numbers are allowed.
+
+In short, a valid custom tag must be able to pass the following regular
+expression:
+
+>
+    [A-Z]+
+<
+
+{2} https://docs.python.org/3/library/datetime.html
+===============================================================================
+LICENSE                                                         *lackey-license*
+
+MIT License
+
+Copyright (c) 2020 Chun Poon
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of 
+this software and associated documentation files (the "Software"), to deal in 
+the Software without restriction, including without limitation the rights to 
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies 
+of the Software, and to permit persons to whom the Software is furnished to do 
+so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all 
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
+SOFTWARE.
+
+===============================================================================
+INSPIRATION                                                 *lackey-inspiration*
+
+The creation of Lackey is inspired by the Todo Tree extension for VS Code{3}.
+There might be a Vim plugin that does something similar, but I could not find
+one at the time of creation. If you are aware of a Vim plugin that serves a
+similar purpose, please let me know.
+
+{3} https://marketplace.visualstudio.com/items?itemName=Gruntfuggly.todo-tree
+
+===============================================================================
+CONTRIBUTE                                                   *lackey-contribute*
+
+If you encounter bugs, are missing a feature, have suggestions to improve the
+code or other feedback, please open an issue on Github.
+
+If you have implemented improvements to Lackey on your own, please consider
+sending a pull request.
+
+Github: https://github.com/heyitschun/vim-lackey
+
+===============================================================================
+vim:tw=78:ts=8:ft=help:norl:

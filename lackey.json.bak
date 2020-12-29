@@ -1,0 +1,58 @@
+{
+	"refactor": [
+		{
+			"timestamp": "1594235854",
+			"location": {
+				"file": "./python/source.py",
+				"line": "16"
+			},
+			"description": "turn page read into function"
+		}
+	],
+	"docs": [
+		{
+			"timestamp": "1599148854",
+			"location": {
+				"file": "~/src/hooks/HttpGetRequest.js",
+				"line": "30"
+			},
+			"description": "write doctring for `useAxiosGet`"
+		},
+		{
+			"timestamp": "1599235854",
+			"location": {
+				"file": "~/src/hooks/HttpGetRequest.js",
+				"line": "22"
+			},
+			"description": "write doctring for `useAxiosPost`"
+		},
+		{
+			"timestamp": "1589148854",
+			"location": {
+				"file": "~/doc/lackey.txt",
+				"line": "100"
+			},
+			"description": "write doctring string for Vim plugin Lackey"
+		}
+	],
+	"feat": [
+		{
+			"timestamp": "1599145843",
+			"location": {
+				"file": "~/src/components/UserInput.js",
+				"line": "50"
+			},
+			"description": "add buttons for user input"
+		}
+	],
+	"fix": [
+		{
+			"timestamp": "1598235854",
+			"location": {
+				"file": "./python/source.py",
+				"line": "8"
+			},
+			"description": "do we need to print usage?"
+		}
+	]
+}
